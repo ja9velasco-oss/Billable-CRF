@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prince Tech - Official Request Form</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#ffffff",
+                    "surface-bright": "#fdfdff",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "on-surface-variant": "#5a5e70",
+                    "on-error": "#ffffff",
+                    "on-background": "#001a40",
+                    "background": "#f4f7fb",
+                    "tertiary": "#3c454d",
+                    "secondary-container": "#e0e7f1",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9e2f0",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#141c24",
+                    "surface-container": "#f0f4f9",
+                    "secondary-fixed": "#d7e3fb",
+                    "on-secondary-container": "#444e5e",
+                    "inverse-surface": "#1d3052",
+                    "tertiary-fixed": "#dae3ee",
+                    "outline": "#8e919f",
+                    "on-primary-fixed": "#001848",
+                    "primary-fixed": "#dae2ff",
+                    "surface-variant": "#dfe3f0",
+                    "primary": "#0052cc", 
+                    "on-secondary-fixed": "#101c2d",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f8f9fc",
+                    "surface": "#ffffff",
+                    "on-tertiary-fixed-variant": "#3f4850",
+                    "primary-container": "#003d9b",
+                    "surface-container-high": "#e8ecf4",
+                    "secondary-fixed-dim": "#bbc7de",
+                    "tertiary-container": "#535c65",
+                    "surface-tint": "#0052cc",
+                    "outline-variant": "#d1d5db",
+                    "inverse-primary": "#b2c5ff",
+                    "surface-container-highest": "#dbe2f0",
+                    "on-tertiary-container": "#cbd4df",
+                    "inverse-on-surface": "#edf0ff",
+                    "on-secondary-fixed-variant": "#3b475b",
+                    "on-primary": "#ffffff",
+                    "secondary": "#535f73",
+                    "tertiary-fixed-dim": "#bec7d2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1e",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.375rem",
+                    "xl": "0.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-xs": "4px",
+                    "stack-md": "16px",
+                    "max-width": "1400px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["22px", {"lineHeight": "30px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"} ]
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+        html, body {
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            height: auto !important;
+            min-height: 100vh !important;
+        }
+
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6d6; border-radius: 10px; }
+        
+        input, select, textarea {
+            @apply border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 text-on-surface p-2 text-[13px] rounded-lg w-full box-border;
+            border-width: 1px;
+        }
+        textarea { padding: 12px; resize: vertical; }
+        
+        .rate-warning { font-size: 10px; font-weight: 600; margin-top: 2px; }
+        .amount-warning { font-size: 10px; margin-top: 2px; }
+        
+        .card-shadow { box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); }
+        .legal-landscape { max-width: 1400px; margin: 0 auto; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .section-divider { @apply border-t border-outline-variant/30 my-6; }
+        .input-group label { @apply text-label-md font-label-md text-secondary mb-1.5 block; }
+        
+        .fi-table th { @apply bg-surface-container-high py-3 px-4 text-left text-label-sm font-bold text-secondary uppercase tracking-widest border-b border-outline-variant; }
+        .fi-table td { @apply py-3 px-4 border-b border-outline-variant/30 text-[13px] align-middle; }
+        
+        .readonly-bg { @apply bg-surface-container-low font-bold text-on-surface-variant !important; }
+
+        /* Auto-growing textareas in Section B/C: height tracks content as you type */
+        #sec-bc textarea {
+            resize: none;
+            overflow-y: hidden;
+            min-height: 84px;            /* ~3 rows baseline */
+            transition: height 0.08s ease-out;
+        }
+
+        /* ---------- PRINT PAGINATION ---------- */
+        @media print {
+            /* Drop the on-screen app chrome so the form prints clean */
+            header, aside { display: none !important; }
+            main { padding: 0 !important; }
+            body { background: #ffffff !important; }
+            .legal-landscape { max-width: 100% !important; }
+
+            /* Keep each card together and never split it across a page boundary */
+            section,
+            .signatory-box,
+            table, tr, thead, tbody {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            /* Never orphan a section title: the heading block stays glued to the
+               content that follows it, so a title can't sit alone at the bottom
+               of a page while its table flows onto the next */
+            section > div:first-child {
+                break-inside: avoid;
+                break-after: avoid;
+                page-break-inside: avoid;
+                page-break-after: avoid;
+            }
+            h1, h2, h3 {
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+
+            /* Section D is intentionally large; allow it to span pages if it must,
+               but its own title is still protected by the rule above */
+            #section-d {
+                break-inside: auto;
+                page-break-inside: auto;
+            }
+
+            /* Expanded textareas should print their full content, no inner scroll */
+            #sec-bc textarea {
+                overflow: visible !important;
+                height: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+
+<header class="fixed top-0 z-50 w-full h-16 bg-surface-container-lowest border-b border-outline-variant">
+    <div class="flex justify-between items-center w-full px-margin-desktop max-w-max-width mx-auto h-16">
+        <div class="flex items-center gap-stack-md">
+            <span class="text-[20px] font-extrabold text-primary tracking-tight">Prince Tech Change Portal</span>
+        </div>
+        <nav class="hidden md:flex items-center gap-6">
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-[12px] font-bold tracking-wider uppercase" href="#">Dashboard</a>
+            <a class="text-primary border-b-2 border-primary pb-2 font-bold text-[12px] tracking-wider uppercase" href="#">Change Engine</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-[12px] font-bold tracking-wider uppercase" href="#">Audits</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container-high rounded-full">notifications</button>
+            <div class="w-8 h-8 rounded-full bg-primary text-white font-bold text-center leading-8 text-xs shadow-sm">PT</div>
+        </div>
+    </div>
+</header>
+
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-16 w-64 bg-surface-container-low border-r border-outline-variant py-6 z-40">
+    <div class="px-6 mb-6 border-b border-outline-variant pb-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary-container text-white rounded flex items-center justify-center font-black shadow-inner">CR</div>
+            <div>
+                <div class="text-[14px] font-extrabold text-primary tracking-wide">PTC-CRF Engine</div>
+                <div class="text-[11px] text-on-surface-variant font-medium">Enterprise Format v2.0</div>
+            </div>
+        </div>
+    </div>
+    <nav class="flex-1 space-y-1">
+        <a class="flex items-center gap-3 text-on-surface-variant px-5 py-3 hover:bg-surface-container-high transition-all text-[12px] font-bold uppercase tracking-wider" href="#sec-a">
+            <span class="material-symbols-outlined text-[18px]">info</span> Context Info
+        </a>
+        <a class="flex items-center gap-3 text-on-surface-variant px-5 py-3 hover:bg-surface-container-high transition-all text-[12px] font-bold uppercase tracking-wider" href="#sec-bc">
+            <span class="material-symbols-outlined text-[18px]">description</span> Assessment Scope
+        </a>
+        <a class="flex items-center gap-3 text-on-surface-variant px-5 py-3 hover:bg-surface-container-high transition-all text-[12px] font-bold uppercase tracking-wider" href="#section-d">
+            <span class="material-symbols-outlined text-[18px]">calculate</span> Cost Estimates
+        </a>
+        <a class="flex items-center gap-3 text-on-surface-variant px-5 py-3 hover:bg-surface-container-high transition-all text-[12px] font-bold uppercase tracking-wider" href="#section-eg">
+            <span class="material-symbols-outlined text-[18px]">assignment</span> System Routing
+        </a>
+        <a class="flex items-center gap-3 text-on-surface-variant px-5 py-3 hover:bg-surface-container-high transition-all text-[12px] font-bold uppercase tracking-wider" href="#sec-signatories">
+            <span class="material-symbols-outlined text-[18px]">fact_check</span> Digital Ledger
+        </a>
+    </nav>
+</aside>
+
+<main class="lg:pl-64 pt-16 pb-24">
+    <div class="legal-landscape px-6 py-8">
+        
+        <div class="mb-8 animate-fade-in border-b border-outline-variant pb-5 mt-4">
+            <h1 class="text-display-lg text-on-background">PRINCE TECHNOLOGIES CORPORATION</h1>
+            <p class="text-label-sm font-bold text-primary uppercase tracking-widest mt-1">Internal Billable Customization Request & Approval Form</p>
+        </div>
+
+        <div class="space-y-8">
+
+            <section class="bg-white rounded-xl p-8 card-shadow animate-fade-in" id="sec-a">
+                <div class="flex items-center gap-2 mb-6 border-b border-outline-variant/20 pb-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">info</span>
+                    <h2 class="text-headline-md text-on-background">A. Request Information</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-5">
+                    <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Request No.</label><input type="text" id="req_no"></div>
+                    <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Date Filed</label><input type="date" id="date_filed"></div>
+                    <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Requested By</label><input type="text" id="req_by"></div>
+                    <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Department</label><input type="text" id="dept"></div>
+                    <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Client Name</label><input type="text" id="client_name"></div>
+                    <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Target Delivery Date</label><input type="date" id="target_date"></div>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-xl p-8 card-shadow animate-fade-in" id="sec-bc">
+                <div class="flex items-center gap-2 mb-6 border-b border-outline-variant/20 pb-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">description</span>
+                    <h2 class="text-headline-md text-on-background">B. Summary & C. Scope Assessment</h2>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Brief Description of Request:</label><textarea id="b_desc" rows="3"></textarea></div>
+                    <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Business Justification / Revenue Impact:</label><textarea id="b_just" rows="3"></textarea></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Functional Scope:</label><textarea id="c_func" rows="3"></textarea></div>
+                        <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Technical Components Affected:</label><textarea id="c_tech" rows="3"></textarea></div>
+                    </div>
+                    <div class="flex flex-col gap-1.5"><label class="text-label-md font-label-md text-secondary">Dependencies / Risks Identified:</label><textarea id="c_risk" rows="3"></textarea></div>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-xl p-8 card-shadow animate-fade-in" id="section-d" style="animation-delay: 0.15s">
+                <div class="flex items-center justify-between mb-8 border-b border-outline-variant/20 pb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-3xl">calculate</span>
+                        <h2 class="text-headline-md text-on-background">D. Effort & Cost Estimation</h2>
+                    </div>
+                    <div class="bg-surface-container px-4 py-2 rounded-lg border border-outline-variant/30 flex items-center gap-4">
+                        <span class="text-label-sm font-bold text-secondary uppercase">Rate Indicators:</span>
+                        <div class="flex gap-4">
+                            <span class="flex items-center gap-1.5 text-[10px] font-bold text-error uppercase"><div class="w-2 h-2 rounded-full bg-error"></div> Below Min</span>
+                            <span class="flex items-center gap-1.5 text-[10px] font-bold text-primary uppercase"><div class="w-2 h-2 rounded-full bg-primary"></div> Above Max</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="bg-surface-container-low text-on-surface-variant text-[13px] p-4 rounded-xl border border-outline-variant/60 mb-6 font-medium leading-relaxed">
+                    <strong class="text-primary uppercase tracking-wide text-label-sm block mb-1">Head/Vice Head Guidance:</strong> 
+                    Rates default to Min baseline metrics. Orange flags indicate configurations below boundary limits; Blue alerts outline adjustments processing above guidelines. 
+                    <strong>Premium rules</strong> recommend a 30-50% operational rush fee implementation mapping directly over baseline configurations.
+                </p>
+                
+                <div class="overflow-x-auto rounded-xl border border-outline-variant/50 mb-6">
+                    <table class="w-full fi-table" id="effortTable">
+                        <thead>
+                            <tr>
+                                <th class="w-1/4">Service Type</th>
+                                <th class="w-1/4">Description</th>
+                                <th>Model</th>
+                                <th class="text-center">Hrs</th>
+                                <th class="text-center">MD</th>
+                                <th>Rate (PHP)</th>
+                                <th class="text-right">Amount (PHP)</th>
+                                <th class="w-12"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant/20" id="effortBody"></tbody>
+                    </table>
+                </div>
+                
+                <button class="inline-flex items-center gap-2 px-6 py-2.5 bg-secondary text-white rounded-lg text-label-md font-bold hover:bg-on-background transition-all shadow-md mb-8" onclick="addRow()">
+                    <span class="material-symbols-outlined">add_circle</span> Add Service Line Item
+                </button>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12 pt-10 border-t border-outline-variant/30">
+                    <div class="space-y-6">
+                        <h3 class="text-label-md font-black text-primary uppercase tracking-widest border-l-4 border-primary pl-3">Project Cost Breakdown</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+                                <span class="text-body-md text-secondary">Number of Developers</span>
+                                <input class="w-20 rounded p-1.5 text-right font-bold" id="numDevs" min="0" oninput="calc()" step="1" type="number" value="0"/>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+                                <span class="text-body-md text-secondary">Total Man Days (Excl. Consulting)</span>
+                                <input class="w-24 bg-transparent text-right font-black text-primary" id="manDaysInput" readonly="" type="text" value="0"/>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-body-md text-secondary">Man Cost (PHP)</span>
+                                <input class="w-32 bg-transparent text-right font-black text-primary" id="manCostDisplay" readonly="" type="text" value="0.00"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <h3 class="text-label-md font-black text-primary uppercase tracking-widest border-l-4 border-primary pl-3">Quality Assurance</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+                                <span class="text-body-md text-secondary">Number of QA Engineers</span>
+                                <input class="w-20 rounded p-1.5 text-right font-bold" id="numQAs" min="0" oninput="calc()" step="1" type="number" value="0"/>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+                                <span class="text-body-md text-secondary">Testing Days</span>
+                                <input class="w-20 rounded p-1.5 text-right font-bold" id="testingDaysInput" min="0" oninput="calc()" step="1" type="number" value="7"/>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-body-md text-secondary">Testing Cost (PHP)</span>
+                                <input class="w-32 bg-transparent text-right font-black text-primary" id="testingCostDisplay" readonly="" type="text" value="0.00"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-surface-container rounded-xl p-6 border border-outline-variant/30 flex flex-col justify-center gap-4">
+                        <div class="flex items-center gap-3">
+                            <input class="w-6 h-6 rounded text-primary focus:ring-primary cursor-pointer" id="rushWorkCheckbox" oninput="calc()" type="checkbox"/>
+                            <label class="text-label-md font-bold text-on-background cursor-pointer" for="rushWorkCheckbox">Apply Rush Work Premium (30%)</label>
+                        </div>
+                        <div class="text-[11px] text-secondary/70 italic leading-relaxed">
+                            Surcharge applies to base services only. Typically used for deliveries required in less than 5 business days from approval.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-on-background rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+                    <h3 class="text-label-md font-black uppercase tracking-[0.2em] mb-8 border-b border-white/10 pb-4">Executive Pricing Summary</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                        <div class="space-y-1">
+                            <div class="text-white/60 text-[10px] uppercase font-bold tracking-widest">Sub-Total (MD: <span id="totalMD">0</span>)</div>
+                            <div class="text-2xl font-light" id="subTotal">0.00</div>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="text-white/60 text-[10px] uppercase font-bold tracking-widest flex items-center gap-2">
+                                Profit Margin <input class="w-12 bg-white/10 border-white/20 rounded text-[10px] p-0.5 text-center" id="marginPct" max="100" min="0" oninput="calc()" type="number" value="25"/>%
+                            </div>
+                            <div class="text-2xl font-light" id="marginAmt">0.00</div>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="text-white/60 text-[10px] uppercase font-bold tracking-widest flex items-center gap-2">
+                                <input checked="" class="w-3 h-3 rounded bg-white/10 cursor-pointer" id="vatCheckbox" oninput="calc()" type="checkbox"/> VAT (12%)
+                            </div>
+                            <div class="text-2xl font-light" id="vatAmt">0.00</div>
+                        </div>
+                        <div class="space-y-1 bg-primary px-6 py-4 rounded-xl -my-4 -mr-4 flex flex-col justify-center">
+                            <div class="text-white/80 text-[10px] uppercase font-black tracking-widest">Grand Total (PHP)</div>
+                            <div class="text-3xl font-black" id="grandTotal">0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="section-eg">
+                <section class="bg-white rounded-xl p-8 card-shadow space-y-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-6 border-b border-outline-variant/20 pb-4">
+                            <span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
+                            <h2 class="text-headline-sm text-on-background uppercase tracking-widest">E & G. Classification & Compliance</h2>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="input-group">
+                                <label>In Contract Scope</label>
+                                <select class="w-full rounded-lg px-3 py-2.5" id="g_scope"><option>Yes</option><option>No</option></select>
+                            </div>
+                            <div class="input-group">
+                                <label>SLA Impact</label>
+                                <select class="w-full rounded-lg px-3 py-2.5" id="g_sla"><option>No</option><option>Yes</option></select>
+                            </div>
+                            <div class="input-group">
+                                <label>Data Privacy</label>
+                                <select class="w-full rounded-lg px-3 py-2.5" id="g_privacy"><option>No Impact</option><option>Impact Identified</option></select>
+                            </div>
+                            <div class="input-group">
+                                <label>Security Review</label>
+                                <select class="w-full rounded-lg px-3 py-2.5" id="g_security"><option>Not Needed</option><option>Needed</option></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-outline-variant/20 pt-4">
+                        <div class="input-group">
+                            <label class="font-bold text-primary">E. Billing Classification</label>
+                            <select id="e_billing" class="w-full rounded-lg px-3 py-2.5">
+                                <option>Billable Customization</option>
+                                <option>Covered by SLA / Support</option>
+                                <option>Goodwill / Free of Charge</option>
+                                <option>Bundled in Contract</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white rounded-xl p-8 card-shadow">
+                    <div class="flex items-center gap-3 mb-6 border-b border-outline-variant/20 pb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">groups</span>
+                        <h2 class="text-headline-sm text-on-background uppercase tracking-widest">F. Resource Allocation</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="text-label-sm font-bold text-secondary uppercase py-2">Role</div>
+                            <div class="text-label-sm font-bold text-secondary uppercase py-2">Assigned To</div>
+                            <div class="text-label-sm font-bold text-secondary uppercase py-2">Availability</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3 items-center border-t border-outline-variant/10 pt-3">
+                            <div class="text-body-md font-bold text-primary">Project Manager</div>
+                            <input class="rounded px-2 py-1.5" id="f_pm" type="text"/>
+                            <input class="rounded px-2 py-1.5" id="f_pm_a" placeholder="e.g. Immediate" type="text"/>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3 items-center">
+                            <div class="text-body-md font-bold text-primary">Lead Developer</div>
+                            <input class="rounded px-2 py-1.5" id="f_dev" type="text"/>
+                            <input class="rounded px-2 py-1.5" id="f_dev_a" type="text"/>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3 items-center">
+                            <div class="text-body-md font-bold text-primary">QA Engineer</div>
+                            <input class="rounded px-2 py-1.5" id="f_qa" type="text"/>
+                            <input class="rounded px-2 py-1.5" id="f_qa_a" type="text"/>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <section class="bg-white rounded-xl p-8 card-shadow" id="section-h">
+                <div class="flex items-center gap-3 mb-8 border-b border-outline-variant/20 pb-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">fact_check</span>
+                    <h2 class="text-headline-md text-on-background">H. Approval Routing & Final Decision</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="input-group">
+                        <label>Current Approval Status</label>
+                        <select class="w-full rounded-lg px-4 py-3 bg-surface-container-low text-primary font-bold" id="h_status">
+                            <option>Pending Lead Review</option>
+                            <option>Pending Finance</option>
+                            <option>Approved by Operations</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Final Decision Directive Authority</label>
+                        <select class="w-full rounded-lg px-4 py-3 border-2 border-primary/20 bg-primary/5 font-bold" id="final_decision">
+                            <option>Approved for Client Quotation</option>
+                            <option>DULY APPROVED BY THE PTC HEAD OF OPERATIONS – This shall serve as the official quotation for client approval</option>
+                            <option>Approved – Non-Billable</option>
+                            <option>Returned for Revision</option>
+                            <option>Rejected</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-xl p-8 card-shadow" id="sec-signatories">
+                <div class="text-label-md font-black text-primary uppercase tracking-widest border-b border-outline-variant/20 pb-4 mb-6 text-center">Signatories Authentication Interface</div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="border border-outline-variant rounded-xl p-5 bg-surface-container-low flex flex-col justify-between signatory-box text-center">
+                        <div class="space-y-2 flex flex-col items-center">
+                            <label class="text-label-sm font-bold text-primary tracking-wider uppercase block mb-1 text-center">Prepared By</label>
+                            <input type="text" id="sig1_name" placeholder="FULL EMPLOYEE NAME" class="uppercase text-center">
+                            <input type="text" id="sig1_title" placeholder="Corporate Title Designation" class="text-center">
+                            <input type="date" id="sig1_date" class="text-center">
+                        </div>
+                        <div class="mt-4 w-full flex flex-col items-center">
+                            <div class="border-2 border-dashed border-outline-variant bg-white rounded-lg min-h-[90px] w-full flex items-center justify-center relative overflow-hidden sig-preview-wrap mb-2" id="sig1_preview">
+                                <span class="text-[11px] font-medium text-slate-400 italic sig-placeholder">No signature uploaded</span>
+                            </div>
+                            <div class="flex items-center gap-2 w-full">
+                                <label class="flex-1 bg-primary text-white text-[11px] font-bold py-2 px-1 rounded-lg cursor-pointer hover:bg-primary-container transition-all flex items-center justify-center gap-1 shadow-sm text-center">
+                                    <span>📎 Upload</span>
+                                    <input type="file" accept="image/*" class="hidden" onchange="loadSig(this, 'sig1')">
+                                </label>
+                                <button class="bg-error text-white text-[11px] font-bold py-2 px-3 rounded-lg hover:bg-red-700 transition-all hidden" id="sig1_clear" onclick="clearSig('sig1')">✕ Clear</button>
+                            </div>
+                        </div>
+                        <div class="border-t border-outline-variant mt-4 pt-2 text-center text-[10px] font-medium tracking-wide text-secondary uppercase signatory-line w-full">Signature over Printed Name</div>
+                    </div>
+
+                    <div class="border border-outline-variant rounded-xl p-5 bg-surface-container-low flex flex-col justify-between signatory-box text-center">
+                        <div class="space-y-2 flex flex-col items-center">
+                            <label class="text-label-sm font-bold text-primary tracking-wider uppercase block mb-1 text-center">Reviewed By</label>
+                            <input type="text" id="sig2_name" placeholder="FULL REVIEWER NAME" class="uppercase text-center">
+                            <input type="text" id="sig2_title" placeholder="Corporate Title Designation" class="text-center">
+                            <input type="date" id="sig2_date" class="text-center">
+                        </div>
+                        <div class="mt-4 w-full flex flex-col items-center">
+                            <div class="border-2 border-dashed border-outline-variant bg-white rounded-lg min-h-[90px] w-full flex items-center justify-center relative overflow-hidden sig-preview-wrap mb-2" id="sig2_preview">
+                                <span class="text-[11px] font-medium text-slate-400 italic sig-placeholder">No signature uploaded</span>
+                            </div>
+                            <div class="flex items-center gap-2 w-full">
+                                <label class="flex-1 bg-primary text-white text-[11px] font-bold py-2 px-1 rounded-lg cursor-pointer hover:bg-primary-container transition-all flex items-center justify-center gap-1 shadow-sm text-center">
+                                    <span>📎 Upload</span>
+                                    <input type="file" accept="image/*" class="hidden" onchange="loadSig(this, 'sig2')">
+                                </label>
+                                <button class="bg-error text-white text-[11px] font-bold py-2 px-3 rounded-lg hover:bg-red-700 transition-all hidden" id="sig2_clear" onclick="clearSig('sig2')">✕ Clear</button>
+                            </div>
+                        </div>
+                        <div class="border-t border-outline-variant mt-4 pt-2 text-center text-[10px] font-medium tracking-wide text-secondary uppercase signatory-line w-full">Signature over Printed Name</div>
+                    </div>
+
+                    <div class="border border-outline-variant rounded-xl p-5 bg-surface-container-low flex flex-col justify-between signatory-box text-center">
+                        <div class="space-y-2 flex flex-col items-center">
+                            <label class="text-label-sm font-bold text-primary tracking-wider uppercase block mb-1 text-center">Approved By (Head of Operations)</label>
+                            <input type="text" id="sig3_name" placeholder="FULL EXECUTIVE NAME" class="uppercase text-center">
+                            <input type="text" id="sig3_title" placeholder="Corporate Title Designation" class="text-center">
+                            <input type="date" id="sig3_date" class="text-center">
+                        </div>
+                        <div class="mt-4 w-full flex flex-col items-center">
+                            <div class="border-2 border-dashed border-outline-variant bg-white rounded-lg min-h-[90px] w-full flex items-center justify-center relative overflow-hidden sig-preview-wrap mb-2" id="sig3_preview">
+                                <span class="text-[11px] font-medium text-slate-400 italic sig-placeholder">No signature uploaded</span>
+                            </div>
+                            <div class="flex items-center gap-2 w-full">
+                                <label class="flex-1 bg-primary text-white text-[11px] font-bold py-2 px-1 rounded-lg cursor-pointer hover:bg-primary-container transition-all flex items-center justify-center gap-1 shadow-sm text-center">
+                                    <span>📎 Upload</span>
+                                    <input type="file" accept="image/*" class="hidden" onchange="loadSig(this, 'sig3')">
+                                </label>
+                                <button class="bg-error text-white text-[11px] font-bold py-2 px-3 rounded-lg hover:bg-red-700 transition-all hidden" id="sig3_clear" onclick="clearSig('sig3')">✕ Clear</button>
+                            </div>
+                        </div>
+                        <div class="border-t border-outline-variant mt-4 pt-2 text-center text-[10px] font-medium tracking-wide text-secondary uppercase signatory-line w-full">Signature over Printed Name</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="text-center pt-8">
+                <button class="bg-emerald-600 text-white font-black text-[15px] px-12 py-4 rounded-xl shadow-lg hover:bg-emerald-700 hover:shadow-xl transition-all tracking-wider uppercase inline-flex items-center gap-2.5" onclick="generatePDF()">
+                    <span class="material-symbols-outlined text-[20px]">download_for_offline</span> Download Final Document PDF
+                </button>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<script>
+const sigData = { sig1: null, sig2: null, sig3: null };
+
+function loadSig(input, key) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+        sigData[key] = e.target.result;
+        const wrap = document.getElementById(key + '_preview');
+        wrap.innerHTML = `<img src="${e.target.result}" alt="signature" style="max-width: 100%; max-height: 85px; display: block;">`;
+        document.getElementById(key + '_clear').classList.remove('hidden');
+    };
+    reader.readAsDataURL(file);
+}
+
+function clearSig(key) {
+    sigData[key] = null;
+    const wrap = document.getElementById(key + '_preview');
+    wrap.innerHTML = `<span class="text-[11px] font-medium text-slate-400 italic sig-placeholder">No signature uploaded</span>`;
+    document.getElementById(key + '_clear').classList.add('hidden');
+    const box = wrap.closest('.signatory-box');
+    const fi = box.querySelector('input[type=file]');
+    if (fi) fi.value = '';
+}
+
+const SERVICE_RATES = {
+    "Standard Integrations": { desc: "API connection to existing systems", model: "Fixed", min: 14500, max: 14500, notes: "Standard integration pricing" },
+    "Complex Integrations": { desc: "Multiple endpoints, authentication, mapping", model: "Fixed", min: 25000, max: 45000, notes: "ERP or enterprise systems" },
+    "Online Payment Gateway": { desc: "Integration with payment providers", model: "Fixed", min: 18000, max: 30000, notes: "Depends on gateway complexity" },
+    "SAP / ERP Integration": { desc: "Enterprise system integration", model: "Project Based", min: 40000, max: 80000, notes: "Requires mapping and testing" },
+    "LMS Integration": { desc: "LMS authentication and API connection", model: "Fixed", min: 20000, max: 35000, notes: "Depends on LMS documentation" },
+    "Minor Customization": { desc: "Small UI or logic change", model: "Fixed", min: 8000, max: 12000, notes: "Usually <1 day development" },
+    "Medium Customization": { desc: "Feature enhancement", model: "Fixed", min: 18000, max: 30000, notes: "Requires testing and QA" },
+    "Major Customization": { desc: "New module or complex workflow", model: "Project Based", min: 45000, max: 120000, notes: "Quoted separately" },
+    "Hybrid Work": { desc: "Integration + Customization", model: "Itemized", min: 14500, max: 0, notes: "Combination of services" },
+    "Iterative Customizations": { desc: "Continuous requests or revisions", model: "Hourly", min: 1800, max: 2500, notes: "Recommended hourly billing" },
+    "Technical Consultation": { desc: "Architecture / API planning", model: "Hourly", min: 2500, max: 3500, notes: "Senior engineer involvement" },
+    "Emergency / Priority Work": { desc: "Rush or urgent work", model: "Premium", min: 0.3, max: 0.5, notes: "Manual premium (Suggested 30-50% of hourly rate)" }
+};
+
+function addRow(preSelect = "") {
+    const tbody = document.getElementById('effortBody');
+    const row = tbody.insertRow();
+    
+    let options = '<option value="">-- Select Service --</option>';
+    for (let key in SERVICE_RATES) {
+        options += `<option value="${key}" ${key === preSelect ? 'selected' : ''}>${key}</option>`;
+    }
+
+    row.innerHTML = `
+        <td class="p-2"><select class="service-select" onchange="updateRowLogic(this)">${options}</select></td>
+        <td class="p-2">
+            <div class="desc-text text-on-surface font-semibold text-[13px]">-</div>
+            <small class="notes-text text-secondary/70 text-[11px] font-medium block mt-0.5"></small>
+        </td>
+        <td class="model-text p-2 text-[11px] font-extrabold text-secondary uppercase tracking-wide">-</td>
+        <td class="p-2"><input type="number" class="hours-input text-right" value="0" min="0" step="1" oninput="onHrsChange(this)"></td>
+        <td class="p-2"><input type="number" class="md text-right" value="0" min="0" step="0.125" oninput="onMdChange(this)"></td>
+        <td class="p-2">
+            <input type="number" class="rate-input text-right" value="0.00" step="0.01" oninput="calc()">
+            <div class="rate-warning tracking-wide"></div>
+        </td>
+        <td class="p-2">
+            <input type="number" class="amount-input text-right font-semibold" value="0.00" step="0.01" oninput="calc()">
+            <div class="amount-warning tracking-wide"></div>
+        </td>
+        <td style="text-align:center;" class="p-2"><button class="del-btn bg-error text-white border-none rounded-lg cursor-pointer px-2.5 py-1.5 hover:bg-red-700 transition-all font-bold" onclick="delRow(this)">✕</button></td>
+    `;
+    if(preSelect) updateRowLogic(row.querySelector('.service-select'));
+}
+
+function updateRowLogic(select) {
+    const row = select.parentElement.parentElement;
+    const data = SERVICE_RATES[select.value];
+    if (!data) return;
+
+    row.querySelector('.desc-text').innerText = data.desc;
+    row.querySelector('.notes-text').innerText = data.notes ? data.notes : "";
+    row.querySelector('.model-text').innerText = data.model;
+
+    const rateInput = row.querySelector('.rate-input');
+    const amountInput = row.querySelector('.amount-input');
+    const hoursInput = row.querySelector('.hours-input');
+    const mdInput = row.querySelector('.md');
+
+    rateInput.dataset.min = data.min;
+    rateInput.dataset.max = data.max;
+
+    rateInput.disabled = false;
+    hoursInput.disabled = false;
+    mdInput.disabled = false;
+    amountInput.readOnly = false;
+    amountInput.classList.remove('readonly-bg');
+
+    if (data.model === "Fixed" || data.model === "Project Based") {
+        if (data.model === "Fixed") rateInput.disabled = true;
+        rateInput.value = data.min.toFixed(2);
+        amountInput.value = data.min.toFixed(2);
+        hoursInput.value = 0;
+        mdInput.value = 0;
+        if (data.min === data.max) {
+            amountInput.readOnly = true;
+            amountInput.classList.add('readonly-bg');
+        }
+    } 
+    else if (data.model === "Hourly") {
+        rateInput.value = data.min.toFixed(2);
+        amountInput.readOnly = true;
+        amountInput.classList.add('readonly-bg');
+        hoursInput.value = 1;
+        mdInput.value = 0.125;
+        amountInput.value = (1 * data.min).toFixed(2);
+    }
+    else if (data.model === "Itemized") {
+        rateInput.value = data.min.toFixed(2);
+        amountInput.value = data.min.toFixed(2);
+        hoursInput.disabled = true;
+        mdInput.disabled = true;
+        hoursInput.value = 0;
+        mdInput.value = 0;
+    }
+    else if (data.model === "Premium") {
+        rateInput.value = "0.00";
+        amountInput.value = "0.00";
+        hoursInput.value = 0;
+        mdInput.value = 0;
+    }
+    
+    calc();
+}
+
+function delRow(btn) {
+    const rows = document.querySelectorAll('#effortBody tr');
+    if (rows.length <= 2) {
+        alert('At least 2 service rows are required.');
+        return;
+    }
+    btn.closest('tr').remove();
+    calc();
+}
+
+function onHrsChange(inp) {
+    const tr = inp.closest('tr');
+    let hrs = Math.max(0, Math.round(parseFloat(inp.value) || 0));
+    inp.value = hrs;
+    const md = hrs > 0 ? hrs / 8 : 0;
+    const mdInput = tr.querySelector('.md');
+    if (mdInput) mdInput.value = md;
+    calc();
+}
+
+function onMdChange(inp) {
+    const tr = inp.closest('tr');
+    const md = parseFloat(inp.value) || 0;
+    const hrsInput = tr.querySelector('.hours-input');
+    if (hrsInput) hrsInput.value = md > 0 ? Math.round(md * 8) : 0;
+    calc();
+}
+
+function calc() {
+    let totalMD = 0;
+    let baseCost = 0;
+    let techCost = 0;
+
+    const numDevsInput = document.getElementById('numDevs');
+    if (numDevsInput) numDevsInput.value = Math.max(0, Math.round(parseFloat(numDevsInput.value) || 0));
+    
+    const numQAsInput = document.getElementById('numQAs');
+    if (numQAsInput) numQAsInput.value = Math.max(0, Math.round(parseFloat(numQAsInput.value) || 0));
+    
+    const testingDaysInput = document.getElementById('testingDaysInput');
+    if (testingDaysInput) testingDaysInput.value = Math.max(0, Math.round(parseFloat(testingDaysInput.value) || 0));
+
+    const rows = document.querySelectorAll('#effortBody tr');
+
+    rows.forEach(row => {
+        const selectEl = row.querySelector('.service-select');
+        const service = selectEl ? selectEl.value : '';
+        
+        const modelElement = row.querySelector('.model-text');
+        const model = modelElement ? modelElement.innerText.toUpperCase() : '';
+        
+        const hours = parseFloat(row.querySelector('.hours-input').value) || 0;
+        const md = parseFloat(row.querySelector('.md').value) || 0;
+        const rateInput = row.querySelector('.rate-input');
+        const rateValue = parseFloat(rateInput.value) || 0;
+        const amountInput = row.querySelector('.amount-input');
+        const warningDiv = row.querySelector('.rate-warning');
+        const amountWarning = row.querySelector('.amount-warning');
+        
+        let rowAmt = 0;
+        const min = parseFloat(rateInput.dataset.min) || 0;
+        const max = parseFloat(rateInput.dataset.max) || 0;
+        
+        if (model === "PREMIUM") {
+            const pMin = rateValue * 0.30;
+            const pMax = rateValue * 0.50;
+            rowAmt = parseFloat(amountInput.value) || 0;
+            
+            if (warningDiv) {
+                warningDiv.innerText = `Range: ₱${pMin.toFixed(2)} - ₱${pMax.toFixed(2)}`;
+                if (rowAmt > 0) {
+                    if (rowAmt < pMin) { warningDiv.style.color = "#ba1a1a"; }
+                    else if (rowAmt > pMax) { warningDiv.style.color = "#0052cc"; }
+                    else { warningDiv.style.color = "#1a1c1e"; }
+                }
+            }
+        }
+        else {
+            if (model === "HOURLY") {
+                rowAmt = hours * rateValue;
+                if (amountInput) amountInput.value = rowAmt.toFixed(2);
+            } else {
+                rowAmt = parseFloat(amountInput.value) || 0;
+            }
+
+            if (warningDiv && rateValue > 0 && max > 0) {
+                if (rateValue < min) {
+                    warningDiv.innerText = "⚠️ Below Min";
+                    warningDiv.style.color = "#ba1a1a";
+                } else if (rateValue > max && min !== max) {
+                    warningDiv.innerText = "ℹ️ Exceeds Max Reminder";
+                    warningDiv.style.color = "#0052cc";
+                } else {
+                    warningDiv.innerText = "";
+                }
+            }
+            
+            if (amountWarning && (model === "FIXED" || model === "PROJECT BASED") && max > 0) {
+                if (rowAmt > 0) {
+                    if (rowAmt < min) {
+                        amountWarning.innerText = "⚠️ Below Min (₱" + min.toLocaleString('en-PH', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ")";
+                        amountWarning.style.color = "#ba1a1a";
+                    } else if (rowAmt > max) {
+                        amountWarning.innerText = "ℹ️ Above Max (₱" + max.toLocaleString('en-PH', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ")";
+                        amountWarning.style.color = "#0052cc";
+                    } else {
+                        amountWarning.innerText = "";
+                    }
+                } else {
+                    amountWarning.innerText = "";
+                }
+            } else if (amountWarning) {
+                amountWarning.innerText = "";
+            }
+        }
+        
+        if (service === 'Technical Consultation' || service === 'Technical Consulting') {
+            techCost += rowAmt;
+        } else {
+            baseCost += rowAmt;
+            totalMD += md;
+        }
+    });
+
+    const multiplier = document.getElementById('rushWorkCheckbox')?.checked ? 1.30 : 1.00;
+    const technicalCostRate = getTechnicalConsultingRate();
+    const numDevs = parseFloat(document.getElementById('numDevs').value) || 0;
+    const manDays = totalMD;
+    const manCost = technicalCostRate * numDevs * manDays;
+
+    const numQAs = parseFloat(document.getElementById('numQAs').value) || 0;
+    const testingDays = parseFloat(document.getElementById('testingDaysInput').value) || 0;
+    const testingCost = technicalCostRate * numQAs * testingDays;
+
+    document.getElementById('manCostDisplay').value = manCost.toFixed(2);
+    document.getElementById('testingCostDisplay').value = testingCost.toFixed(2);
+
+    const subTotal = baseCost * multiplier + techCost + manCost + testingCost;
+    const marginPct = parseFloat(document.getElementById('marginPct').value) || 0;
+    const marginAmt = subTotal * (marginPct / 100);
+    const salePrice = subTotal + marginAmt;
+    const vatCheckbox = document.getElementById('vatCheckbox');
+    const vat = (vatCheckbox && vatCheckbox.checked) ? salePrice * 0.12 : 0;
+    const grandTotal = salePrice + vat;
+
+    const wholeMD = Math.round(totalMD);
+    document.getElementById('totalMD').innerText = wholeMD;
+    const manDaysEl = document.getElementById('manDaysInput');
+    if (manDaysEl) manDaysEl.value = wholeMD;
+    
+    document.getElementById('subTotal').innerText = subTotal.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('marginAmt').innerText = marginAmt.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('vatAmt').innerText = vat.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('grandTotal').innerText = grandTotal.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function getTechnicalConsultingRate() {
+    const rows = document.querySelectorAll('#effortBody tr');
+    for (const row of rows) {
+        const select = row.querySelector('.service-select');
+        if (select?.value === 'Technical Consultation' || select?.value === 'Technical Consulting') {
+            return parseFloat(row.querySelector('.rate-input').value) || SERVICE_RATES['Technical Consultation'].min;
+        }
+    }
+    return SERVICE_RATES['Technical Consultation']?.min || 2500;
+}
+
+// =====================================================================
+// COMPILATION PIPELINE ENGINE (generatePDF)
+// =====================================================================
+function generatePDF() {
+    calc();
+    const { jsPDF } = window.jspdf;
+    
+    // Instantiate programmatic landscape PDF generator matching Legal specifications
+    const outputDocument = new jsPDF('l', 'mm', 'legal');
+    const maxBoundPageWidth = 355.6; 
+
+    const resolveValueById = uiElementId => document.getElementById(uiElementId) ? document.getElementById(uiElementId).value : "";
+    const resolveTextById = uiElementId => document.getElementById(uiElementId) ? document.getElementById(uiElementId).innerText : "0.00";
+
+    // 1. Structural Corporate Navy Heading Strip Setup
+    outputDocument.setFillColor(0, 61, 155); 
+    outputDocument.rect(0, 0, maxBoundPageWidth, 24, 'F');
+    outputDocument.setTextColor(255, 255, 255);
+    outputDocument.setFontSize(14); outputDocument.setFont(undefined, 'black');
+    outputDocument.text("PRINCE TECHNOLOGIES", 12, 11);
+    outputDocument.setFontSize(7); outputDocument.setFont(undefined, 'bold');
+    outputDocument.text("CORPORATION • INTERNAL DOCUMENT ARCHITECTURE", 12, 16);
+    
+    outputDocument.setFontSize(9); outputDocument.text("BILLABLE CUSTOMIZATION REQUEST", maxBoundPageWidth - 12, 11, { align: "right" });
+    outputDocument.setFontSize(7); outputDocument.setFont(undefined, 'normal');
+    outputDocument.text("Approval Form Portfolio v4.2.0", maxBoundPageWidth - 12, 16, { align: "right" });
+
+    // 1. RENDER TABLE A (Identification)
+    outputDocument.setFont(undefined, 'bold'); outputDocument.setFontSize(8); outputDocument.setTextColor(0, 61, 155);
+    outputDocument.text("A. REQUEST IDENTIFICATION", 12, 34);
+    outputDocument.line(12, 36, 120, 36);
+
+    outputDocument.autoTable({
+        startY: 38, margin: { left: 12 }, tableWidth: 108,
+        body: [
+            ['Request No:', resolveValueById('req_no')],
+            ['Date Filed:', resolveValueById('date_filed')],
+            ['Requested By:', resolveValueById('req_by')],
+            ['Department:', resolveValueById('dept')],
+            ['Client Name:', resolveValueById('client_name')],
+            ['Target Delivery Date:', resolveValueById('target_date')]
+        ],
+        theme: 'plain', styles: { fontSize: 7, cellPadding: 1.2 },
+        columnStyles: { 0: { fontStyle: 'bold', cellWidth: 28 } }
+    });
+
+    // 2. RENDER TABLE B & C (Summary) - CHAINED TO A
+    const tableA_EndY = outputDocument.lastAutoTable.finalY;
+
+    const bcRows = [
+        ['Brief Description:', resolveValueById('b_desc')],
+        ['Business Justification:', resolveValueById('b_just')],
+        ['Functional Scope:', resolveValueById('c_func')],
+        ['Technical Components:', resolveValueById('c_tech')],
+        ['Dependencies / Risks:', resolveValueById('c_risk')]
+    ];
+
+    // --- Decide layout from content length BEFORE drawing B ---
+    // Estimate how tall B would be if kept in the NARROW (side-by-side) column.
+    // If that exceeds the vertical room available next to D, B is "too long":
+    // widen it across the page and push D beneath it.
+    const B_NARROW_WIDTH = 108;          // narrow B table width (side-by-side mode)
+    const B_LABEL_WIDTH = 28;            // left label column width
+    const B_CELL_PADDING = 2;            // cell padding (mm)
+    const B_FONT_SIZE = 6.5;
+    const PT_TO_MM = 0.352778;
+    const lineHeightMm = B_FONT_SIZE * 1.15 * PT_TO_MM;
+    const narrowValueTextWidth = B_NARROW_WIDTH - B_LABEL_WIDTH - (B_CELL_PADDING * 2);
+
+    outputDocument.setFontSize(B_FONT_SIZE);
+    let estNarrowLines = 0;
+    bcRows.forEach(([, val]) => {
+        const wrapped = outputDocument.splitTextToSize((val || ' ').toString(), narrowValueTextWidth);
+        estNarrowLines += Math.max(1, wrapped.length);
+    });
+    const estNarrowBHeight = (estNarrowLines * lineHeightMm) + (bcRows.length * B_CELL_PADDING * 2);
+
+    const bStartY = tableA_EndY + 10;
+    const sideBySideBudget = 150 - bStartY;   // keep side-by-side B above the signature band
+    const goWide = estNarrowBHeight > sideBySideBudget;
+
+    const bTableWidth = goWide ? (maxBoundPageWidth - 24) : B_NARROW_WIDTH;
+
+    outputDocument.setFont(undefined, 'bold'); outputDocument.setFontSize(8); outputDocument.setTextColor(0, 61, 155);
+    outputDocument.text("B. SUMMARY & C. SCOPE ASSESSMENT", 12, tableA_EndY + 6);
+    outputDocument.line(12, tableA_EndY + 8, goWide ? (maxBoundPageWidth - 12) : 120, tableA_EndY + 8);
+
+    outputDocument.autoTable({
+        startY: bStartY, margin: { left: 12 }, tableWidth: bTableWidth,
+        body: bcRows,
+        theme: 'grid', styles: { fontSize: B_FONT_SIZE, overflow: 'linebreak', cellPadding: B_CELL_PADDING },
+        columnStyles: { 0: { fontStyle: 'bold', cellWidth: B_LABEL_WIDTH, fillColor: [241, 243, 255] } }
+    });
+
+    // 3. RESPONSIVE FLOW FOR TABLE D
+    const tableB_EndY = outputDocument.lastAutoTable.finalY;
+    const bSpannedPages = outputDocument.getNumberOfPages() > 1;
+    // Stack D below B when B was widened for long content (or it overflowed to a new page);
+    // otherwise keep D to the right of the narrow B (the default short-content layout).
+    const isStacked = goWide || bSpannedPages;
+
+    const dBlockLeft = isStacked ? 12 : 130;
+    const dBlockRight = 12;
+    const dBlockWidth = isStacked ? maxBoundPageWidth - 24 : maxBoundPageWidth - 142;
+    const ledgerX = dBlockLeft;
+    const ledgerY = isStacked ? tableB_EndY + 10 : 38;
+
+    outputDocument.setFont(undefined, 'bold'); outputDocument.setFontSize(8); outputDocument.setTextColor(0, 61, 155);
+    outputDocument.text("D. EFFORT & COST ESTIMATION LEDGER", ledgerX, ledgerY - 4);
+    outputDocument.line(ledgerX, ledgerY - 2, ledgerX + Math.min(100, dBlockWidth - 10), ledgerY - 2);
+
+    const computationalDataRows = [];
+    document.querySelectorAll('#effortBody tr').forEach(row => {
+        const selectEl = row.querySelector('.service-select');
+        if(!selectEl || !selectEl.value) return;
+        computationalDataRows.push([
+            selectEl.value,
+            row.querySelector('.hours-input').value,
+            row.querySelector('.md').value,
+            'PHP ' + (parseFloat(row.querySelector('.rate-input').value) || 0).toLocaleString('en-PH', { minimumFractionDigits: 2 }),
+            'PHP ' + (parseFloat(row.querySelector('.amount-input').value) || 0).toLocaleString('en-PH', { minimumFractionDigits: 2 })
+        ]);
+    });
+
+    outputDocument.autoTable({
+        startY: ledgerY, 
+        margin: { left: dBlockLeft, right: dBlockRight },
+        head: [['Service Type', 'Hours', 'Man Days', 'Rate (PHP)', 'Amount (PHP)']],
+        body: computationalDataRows.length ? computationalDataRows : [['No active items', '0', '0', '0.00', '0.00']],
+        theme: 'grid', headStyles: { fillColor: [241, 243, 255], textColor: [67, 70, 84], fontSize: 7 },
+        styles: { fontSize: 6.5, cellPadding: 1.5 },
+        columnStyles: { 1: { halign: 'center' }, 2: { halign: 'center' }, 3: { halign: 'right' }, 4: { halign: 'right', fontStyle: 'bold' } }
+    });
+
+    // Sub-Calculations Table Mapping Integration (QA / Dev Breakdowns)
+// Sanitized to prevent encoding artifacts and handle null/empty values
+outputDocument.autoTable({
+    startY: outputDocument.lastAutoTable.finalY + 3, 
+    margin: { left: dBlockLeft, right: dBlockRight },
+    head: [['Project Engineering Matrix Components', 'Quantity Metrics', 'Calculated Allocation Cost']],
+    body: [
+        [
+            'Software Engineers / Programmers Assigned', 
+            resolveValueById('numDevs') || "0", 
+            'PHP ' + (parseFloat(document.getElementById('manCostDisplay')?.value) || 0).toLocaleString('en-PH', {minimumFractionDigits: 2})
+        ],
+        [
+            'QA Testing Engineers Assigned (Metrics Profile)', 
+            (resolveValueById('numQAs') || "0") + ' (Days: ' + (resolveValueById('testingDaysInput') || "7") + ')', 
+            'PHP ' + (parseFloat(document.getElementById('testingCostDisplay')?.value) || 0).toLocaleString('en-PH', {minimumFractionDigits: 2})
+        ]
+    ],
+    theme: 'grid', 
+    headStyles: { fillColor: [230, 235, 245], textColor: [40, 50, 70], fontSize: 6.5 },
+    styles: { fontSize: 6.5, cellPadding: 1.5 },
+    columnStyles: { 1: { halign: 'center' }, 2: { halign: 'right', fontStyle: 'bold' } }
+});
+
+    // Programmatic Generation of the Deep Navy Financial Module Block
+    let baselineSummaryY = outputDocument.lastAutoTable.finalY + 4;
+    outputDocument.setFillColor(4, 27, 60); 
+    outputDocument.rect(dBlockLeft, baselineSummaryY, dBlockWidth, 14, 'F');
+    
+    outputDocument.setTextColor(255, 255, 255);
+    outputDocument.setFontSize(6); outputDocument.text(`SUB-TOTAL (MD: ${resolveTextById('totalMD')})`, dBlockLeft + 4, baselineSummaryY + 4.5);
+    outputDocument.setFontSize(9); outputDocument.setFont(undefined, 'bold'); outputDocument.text(resolveTextById('subTotal'), dBlockLeft + 4, baselineSummaryY + 10.5);
+
+    outputDocument.setFontSize(6); outputDocument.text(`MARGIN (${resolveValueById('marginPct')}%)`, dBlockLeft + 55, baselineSummaryY + 4.5);
+    outputDocument.setFontSize(9); outputDocument.text(resolveTextById('marginAmt'), dBlockLeft + 55, baselineSummaryY + 10.5);
+
+    outputDocument.setFontSize(6); outputDocument.text("VAT PROCESSING (12%)", dBlockLeft + 102, baselineSummaryY + 4.5);
+    outputDocument.setFontSize(9); outputDocument.text(resolveTextById('vatAmt'), dBlockLeft + 102, baselineSummaryY + 10.5);
+
+    // Accent Block Total Processing Highlight 
+    const grandBlockWidth = 58;
+    const grandBlockX = dBlockLeft + dBlockWidth - grandBlockWidth;
+    outputDocument.setFillColor(0, 82, 204); 
+    outputDocument.rect(grandBlockX, baselineSummaryY + 2, grandBlockWidth, 10, 'F');
+    outputDocument.setFontSize(5.5); outputDocument.text("GRAND TOTAL COMPILATION (PHP)", grandBlockX + 3, baselineSummaryY + 5);
+    outputDocument.setFontSize(9.5); outputDocument.setFont(undefined, 'black'); outputDocument.text(resolveTextById('grandTotal'), grandBlockX + 3, baselineSummaryY + 9.5);
+
+    // Workflow Routing & Compliance Render Ingestion
+    let complianceBaselineY = baselineSummaryY + 19;
+    outputDocument.setTextColor(0, 61, 155); outputDocument.setFontSize(8); outputDocument.setFont(undefined, 'bold');
+    outputDocument.text("E, F, G & H. WORKFLOW APPROVAL ROUTING & COMPLIANCE CONTROLS", dBlockLeft, complianceBaselineY);
+    outputDocument.line(dBlockLeft, complianceBaselineY + 2, dBlockLeft + dBlockWidth, complianceBaselineY + 2);
+
+    const resourceString = `PM: ${resolveValueById('f_pm')} (${resolveValueById('f_pm_a')}) | Dev: ${resolveValueById('f_dev')} (${resolveValueById('f_dev_a')}) | QA: ${resolveValueById('f_qa')} (${resolveValueById('f_qa_a')})`;
+    const complianceString = `In Scope: ${resolveValueById('g_scope')} | SLA Impact: ${resolveValueById('g_sla')} | Privacy: ${resolveValueById('g_privacy')} | Security: ${resolveValueById('g_security')}`;
+
+    outputDocument.autoTable({
+        startY: complianceBaselineY + 4, margin: { left: dBlockLeft, right: dBlockRight },
+        body: [
+            ['Billing Allocation:', resolveValueById('e_billing'), 'Current Status Tracking:', resolveValueById('h_status')],
+            ['Resource Control Line:', resourceString, 'Compliance Checks:', complianceString]
+        ],
+        theme: 'grid', styles: { fontSize: 6, cellPadding: 1.5 },
+        columnStyles: { 0: { fontStyle: 'bold', cellWidth: 26 }, 2: { fontStyle: 'bold', cellWidth: 28 } }
+    });
+    
+    // Directive Authority Separate Context Bar
+    outputDocument.autoTable({
+        startY: outputDocument.lastAutoTable.finalY + 2, margin: { left: dBlockLeft, right: dBlockRight },
+        body: [['Directive Authority Order:', resolveValueById('final_decision')]],
+        theme: 'grid', styles: { fontSize: 6, cellPadding: 1.5 },
+        columnStyles: { 0: { fontStyle: 'bold', cellWidth: 26, fillColor: [235, 245, 235] } }
+    });
+
+    // 3. Document Executive Author Signatures Matrix Spacing Configuration
+    let signaturesBaselineY = Math.max(outputDocument.lastAutoTable.finalY + 8, 154);
+    outputDocument.setDrawColor(220, 225, 240); outputDocument.line(12, signaturesBaselineY, maxBoundPageWidth - 12, signaturesBaselineY);
+
+    const authorizationTiers = [
+        { nameId: 'sig1_name', titleId: 'sig1_title', dateId: 'sig1_date', structuralLabel: 'PREPARED BY', processingKey: 'sig1' },
+        { nameId: 'sig2_name', titleId: 'sig2_title', dateId: 'sig2_date', structuralLabel: 'REVIEWED BY', processingKey: 'sig2' },
+        { nameId: 'sig3_name', titleId: 'sig3_title', dateId: 'sig3_date', structuralLabel: 'APPROVED BY (HEAD OF OPERATIONS)', processingKey: 'sig3' }
+    ];
+
+    const processingBlockWidth = (maxBoundPageWidth - 24) / 3;
+    authorizationTiers.forEach((tier, structuralIdx) => {
+        const componentLeftBoundX = 12 + (structuralIdx * processingBlockWidth);
+        const componentCenterPositionX = componentLeftBoundX + (processingBlockWidth / 2);
+
+        // Map base64 image strings directly onto page layer if defined
+        if (sigData[tier.processingKey]) {
+            try { 
+                outputDocument.addImage(sigData[tier.processingKey], 'PNG', componentCenterPositionX - 18, signaturesBaselineY + 3, 36, 10, undefined, 'FAST'); 
+            } catch(signatureRenderException) {}
+        } else {
+            outputDocument.setDrawColor(230);
+            outputDocument.rect(componentCenterPositionX - 18, signaturesBaselineY + 3, 36, 10);
+        }
+
+        outputDocument.setDrawColor(4, 27, 60); outputDocument.line(componentLeftBoundX + 15, signaturesBaselineY + 15, componentLeftBoundX + processingBlockWidth - 15, signaturesBaselineY + 15);
+        
+        outputDocument.setTextColor(4, 27, 60); outputDocument.setFontSize(7.5); outputDocument.setFont(undefined, 'bold');
+        outputDocument.text(resolveValueById(tier.nameId).toUpperCase(), componentCenterPositionX, signaturesBaselineY + 19, { align: 'center' });
+        
+        outputDocument.setTextColor(80, 85, 100); outputDocument.setFontSize(6.5); outputDocument.setFont(undefined, 'normal');
+        outputDocument.text(resolveValueById(tier.titleId), componentCenterPositionX, signaturesBaselineY + 22, { align: 'center' });
+        
+        const dateVal = resolveValueById(tier.dateId);
+        if(dateVal) outputDocument.text(`Date: ${dateVal}`, componentCenterPositionX, signaturesBaselineY + 25, { align: 'center' });
+
+        outputDocument.setTextColor(140, 145, 160); outputDocument.setFontSize(5.5);
+        outputDocument.text(tier.structuralLabel, componentCenterPositionX, signaturesBaselineY + 29, { align: 'center' });
+    });
+
+    // 4. Global Fixed System Baseline Document Footer Strip
+    outputDocument.setFillColor(241, 243, 255); outputDocument.rect(0, 206, maxBoundPageWidth, 10, 'F');
+    outputDocument.setTextColor(67, 70, 84); outputDocument.setFontSize(6); outputDocument.setFont(undefined, 'bold');
+    outputDocument.text("HQ: LAS PIÑAS, METRO MANILA   |   CDO BRANCH   |   SILANG FACILITY RESOURCE MANAGEMENT", 12, 212.5);
+    outputDocument.text("PRINCETECH.COM.PH   |   CONFIDENTIAL SYSTEM EXPORT", maxBoundPageWidth - 12, 212.5, { align: "right" });
+
+    outputDocument.save(`BILLABLE_CUSTOMIZATION_REPORT_${resolveValueById('req_no') || 'EXPORT'}.pdf`);
+}
+
+// =====================================================================
+// SECTION B/C TEXTAREA AUTO-GROW (live form only — does not affect PDF/calc)
+// =====================================================================
+function autoGrowTextarea(el) {
+    if (!el) return;
+    el.style.height = 'auto';                    // reset so shrinking works too
+    el.style.height = (el.scrollHeight + 2) + 'px'; // grow to fit content
+}
+
+function initAutoGrow() {
+    const fields = document.querySelectorAll('#sec-bc textarea');
+    fields.forEach(el => {
+        // Grow on every keystroke / paste / programmatic input event
+        el.addEventListener('input', () => autoGrowTextarea(el));
+        // Set the correct starting height for any pre-filled content
+        autoGrowTextarea(el);
+    });
+}
+
+// Lifecycle Init Hook Array
+window.onload = () => {
+    addRow("Standard Integrations");
+    addRow("Medium Customization");
+    calc();
+    initAutoGrow();
+};
+</script>
+</body>
+</html>
